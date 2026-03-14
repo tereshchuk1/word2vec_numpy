@@ -1,10 +1,6 @@
-# Word2Vec in pure NumPy
+# Word2Vec
 
-Skip-Gram with Negative Sampling (SGNS), implemented from scratch using only NumPy — no PyTorch, no TensorFlow.
-
-Trained on Shakespeare's Hamlet (NLTK Gutenberg corpus).
-
-![Embedding visualization](assets/embedding_viz.png)
+Skip-Gram with Negative Sampling, implemented from scratch using only NumPy
 
 ---
 
@@ -44,8 +40,6 @@ $$\frac{\partial \mathcal{L}}{\partial h} = (\sigma(u_{pos}) - 1) \cdot w_{2,pos
 
 ### Negative sampling distribution
 
-Words are sampled from a smoothed unigram distribution:
-
 $$P_n(w) = \frac{f(w)^{0.75}}{\sum_j f(j)^{0.75}}$$
 
 The exponent $0.75$ flattens the distribution relative to raw frequency, giving rare words a higher chance of being drawn as negatives. This prevents the model from only ever contrasting against the most common words.
@@ -81,24 +75,3 @@ word2vec-numpy/
 pip install -r requirements.txt
 python train.py
 ```
-
----
-
-## Results
-
-Most similar words after 100 epochs on Hamlet:
-
-| Query   | Top matches                              |
-|---------|------------------------------------------|
-| hamlet  | horatio, laertes, ophelia, lord, king    |
-| king    | queen, lord, polonius, hamlet, court     |
-| death   | life, soul, time, heaven, fate           |
-
----
-
-## Implementation notes
-
-- Two weight matrices: $W_1$ (target embeddings, shape `[V, n]`) and $W_2$ (context embeddings, shape `[n, V]`). At inference only $W_1$ is used for similarity search.
-- $W_1$ gradient is computed using the **pre-update** copy of $W_2[:, pos]$ to avoid a stale-gradient bug.
-- Negative candidates are sampled in one vectorized `np.random.choice` call (`k*2` at a time) and filtered, avoiding $k$ separate calls.
-- Dynamic window size: window is sampled uniformly from $[1, \text{window\_size}]$ each step, which upweights closer context words as in the original paper.
