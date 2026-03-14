@@ -14,8 +14,6 @@ where $h = v_{w_t}$ is the target word embedding (a row of $W_1$).
 
 Instead of computing a softmax over the entire vocabulary (expensive), we use **negative sampling**: for each positive context word, we sample $K$ random "negative" words and optimize a binary classification objective.
 
----
-
 ### Gradients
 
 Let $u = w_2^\top h$ be the dot product score. The loss for one (target, context) pair is:
@@ -34,15 +32,11 @@ $$\frac{\partial \mathcal{L}}{\partial u_{neg}} = \sigma(u_{neg})$$
 
 $$\frac{\partial \mathcal{L}}{\partial h} = (\sigma(u_{pos}) - 1) \cdot w_{2,pos} + \sum_{k=1}^{K} \sigma(u_{neg_k}) \cdot w_{2,neg_k}$$
 
----
-
 ### Negative sampling distribution
 
 $$P_n(w) = \frac{f(w)^{0.75}}{\sum_j f(j)^{0.75}}$$
 
 The exponent $0.75$ flattens the distribution relative to raw frequency, giving rare words a higher chance of being drawn as negatives. This prevents the model from only ever contrasting against the most common words.
-
----
 
 ### Subsampling frequent words
 
@@ -51,8 +45,6 @@ Each word is kept with probability:
 $$P(\text{keep} \mid w) = \min\left(1,\ \sqrt{\frac{t}{f(w)}}\right)$$
 
 where $t = 10^{-3}$ and $f(w)$ is the relative frequency of the word. High-frequency words like *the*, *and*, *of* are discarded most aggressively, which reduces noise and speeds up training.
-
----
 
 ## Project structure
 
@@ -63,8 +55,6 @@ word2vec-numpy/
 ├── requirements.txt
 
 ```
-
----
 
 ## Run
 
