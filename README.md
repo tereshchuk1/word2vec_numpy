@@ -2,8 +2,6 @@
 
 Skip-Gram with Negative Sampling, implemented from scratch using only NumPy
 
----
-
 ## How it works
 
 ### Skip-Gram objective
@@ -63,8 +61,7 @@ word2vec-numpy/
 ├── word2vec.py        # Word2Vec class (model, training, evaluation)
 ├── train.py           # Corpus loading, training script, t-SNE visualization
 ├── requirements.txt
-└── assets/
-    └── embedding_viz.png
+
 ```
 
 ---
