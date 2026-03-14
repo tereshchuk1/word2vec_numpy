@@ -1,0 +1,4 @@
+numpy
+matplotlib
+scikit-learn  # only for t-SNE visualization
+nltk
