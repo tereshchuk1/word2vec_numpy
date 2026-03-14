@@ -50,9 +50,9 @@ where $t = 10^{-3}$ and $f(w)$ is the relative frequency of the word. High-frequ
 
 ```
 word2vec-numpy/
-├── word2vec.py        # Word2Vec class (model, training, evaluation)
-├── train.py           # Corpus loading, training script, t-SNE visualization
-├── requirements.txt
+─ word2vec.py        # Word2Vec class (model, training, evaluation)
+─ train.py           # Corpus loading, training script, t-SNE visualization
+─ requirements.txt
 
 ```
 
