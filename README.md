@@ -53,6 +53,7 @@ word2vec-numpy/
 ─ word2vec.py        # Word2Vec class (model, training, evaluation)
 ─ train.py           # Corpus loading, training script, t-SNE visualization
 ─ requirements.txt
+─ assets
 
 ```
 
@@ -62,3 +63,8 @@ word2vec-numpy/
 pip install -r requirements.txt
 python train.py
 ```
+
+## Visualization
+
+Trained on Shakespeare's Hamlet (NLTK Gutenberg corpus)
+![Embedding visualization](assets/embedding_viz.png)
