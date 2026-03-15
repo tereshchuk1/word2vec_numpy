@@ -125,14 +125,16 @@ class word2vec():
         idx = self.word_index[word]
         vec = self.w1[idx]
 
-        similarities = {
-            other_word: np.dot(vec, self.w1[other_idx]) /
-                        (np.linalg.norm(vec) * np.linalg.norm(self.w1[other_idx]))
-            for other_word, other_idx in self.word_index.items()
-            if other_word != word
-        }
+        # Vectorized cosine similarity against all embeddings at once
+        dot_products = self.w1 @ vec
+        norms = np.linalg.norm(self.w1, axis=1) * np.linalg.norm(vec)
+        similarities = dot_products / norms
 
-        results = sorted(similarities.items(), key=lambda x: x[1], reverse=True)[:top_n]
+        # Exclude the word itself
+        similarities[idx] = -np.inf
+
+        top_indices = np.argsort(similarities)[::-1][:top_n]
+
         print(f"\nMost similar to '{word}':")
-        for w, score in results:
-            print(f"  {w}: {score:.3f}")
+        for i in top_indices:
+            print(f"  {self.index_word[i]}: {similarities[i]:.3f}")
