@@ -6,9 +6,9 @@ Skip-Gram with Negative Sampling, implemented from scratch using only NumPy
 
 ### Skip-Gram objective
 
-For each target word $w_t$ and context word $w_c$, the model maximizes:
+For each target word $w_t$ and context word $w_c$, the model minimizes:
 
-$$\log \sigma(u_{w_c}^\top h) + \sum_{k=1}^{K} \mathbb{E}_{w_k \sim P_n} [\log \sigma(-u_{w_k}^\top h)]$$
+$$\arg\min_{U,V} \sum_{(w_t, w_c)} \left[ -\log \sigma(u_{w_c}^\top v_{w_t}) - \sum_{k=1}^{K} \mathbb{E}_{w_k \sim P_n} \log \sigma(-uw_k^\top v_{w_t}) \right]$$
 
 where $h = v_{w_t}$ is the target word embedding (a row of $W_1$).
 
